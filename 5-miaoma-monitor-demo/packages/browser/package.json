@@ -1,0 +1,17 @@
+{
+  "name": "@miaoma/monitor-sdk-browser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build:watch": "concurrently \"pnpm run build:watch:transpile\" \"pnpm run build:watch:types\"",
+    "build:watch:transpile": "tsup --watch",
+    "build:watch:types": "tsc -p tsconfig.types.json --watch",
+    "build": "pnpm run build:transpile && pnpm run build:types",
+    "build:transpile": "tsup",
+    "build:types": "tsc -p tsconfig.types.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

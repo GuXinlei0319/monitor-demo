@@ -1,5 +1,7 @@
 监控平台笔记
 
+1-了解前端监控及项目架构设计
+
 - 需求：实现前端异常与性能的监控，保证前端项目的稳定性建设，实现方案参考sentry
 - 技术栈：基于monorep设计的全栈项目，前台react/原生js、后台nextjs、数据库
 - Performance指标与 web Vital 基础：了解Performance指标、web Vital 指标，实现监控
@@ -27,7 +29,8 @@
 - 创建原生项目 vite + ts (vanilla：不涉及到前端任何框架)
 
 ```js
-pnpm create vite vanilla --template vanilla-ts
+
+
 cd vanilla
 pnpm install
 pnpm run dev
@@ -195,7 +198,7 @@ SENTRY_AUTH_TOKEN = your-auth-token
 
 ```node
 pnpm run build
-pnpm preview  线上产物
+pnpm preview  预览打包后的线上产物
 ```
 
 插件会在构建时自动生成sourcemap并上传到sentry。注意，插件在开发模式下不会上传sourcemap，只有在生产环境中才会触发上传
@@ -331,10 +334,23 @@ plugins:[
 
 项目工程化设计
 
+```shell
+npm init -y
+```
+
+创建pnpm配置文件 pnpm-workspace.yaml
+
+```yaml
+packages:
+  - 'packages/*'
+  - 'apps/*'
+  - 'demos/*'
+```
+
 pnpm monorepo 管理
 
 - 项目管理：采用pnpm monorepo 进行管理，可实现多模块统一依赖管理、快速安装以及高效的包缓存。monorepo 管理方式还方便了跨项目依赖共享和版本同步更新，是开发团队可以集中管理各个模块
-- 文件结构： 项目的核心结构包括两个主要文件夹 packages apps demos
+- 文件结构： 项目的核心结构包括两个主要文件夹 packages 、apps、 demos
   - packages 存放SDK 相关模块，包含具体实现和工具函数等
   - apps： 存放数据采集服务等业务应用代码
   - demos：用于演示不同应用的SDK使用
@@ -569,6 +585,10 @@ cspell.json
 
 
 Commit 信息规范（commitlint.config.js）
+
+Commitlint 检查您的提交消息是否符合 Conventional commit format。
+
+cz-git: 一款工程性更强，轻量级，高度自定义，标准输出格式的 commitizen 适配器。
 
 - 依赖
 
@@ -828,6 +848,10 @@ Prettier (.prettierrc)
 
 Husky 配置 （.husky / pre-commit）
 
+Husky 是 Git 钩子工具，可以设置在 git 各个阶段（pre-commit、commit-msg 等）触发。
+
+注意格式 git commit -m "type: 空格+msg"
+
 - 依赖：
   - husky ： 用于Git Hooks管理
   - lint-stage: 集成 Husky ，自动检测和格式化提交的代码文件，确保符合规范
@@ -950,5 +974,15 @@ export function captureMessage(message: string) {
     }),
   });
 }
+```
+
+
+
+配置GIT
+
+```
+git config --local user.name guxinlei
+git config --local user.email 1339093682@qq.com
+git config --local user.password gu133909
 ```
 

@@ -1,0 +1,8 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": ["src/**/*"], // 需要检测的文件路径
+    "compilerOptions": {
+        "types": ["node"], // 类型
+        "lib": ["DOM", "ES6"] // 依赖
+    }
+}
