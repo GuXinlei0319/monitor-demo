@@ -94,6 +94,8 @@ SDK 核心架构设计
 
 进行核心逻辑的编写之前，配置ts配置  tsconfig.json 、 tsconfig.client.json 、tsconfig.server.json
 
+tsconfig.json配置文件超详解  https://blog.csdn.net/zy21131437/article/details/121784420
+
 - 通用 tsconfig.json
 
 ```json
@@ -198,7 +200,7 @@ packages / broswer 下的配置 tsconfig.json
 
 整个构建的工作要通过 tsup 来完成，生成依赖构建
 
-tsup ：介绍 ？？？
+tsup ：`Tsup` 可以快速打包 `typescript` 库，无需任何配置，并且基于[esbuild](https://esbuild.github.io/)进行打包，打包 `ts` 文件速度毫秒级，方便又高效
 
 在最外层安装依赖，在broswer下 创建配置文件 tsup.config.ts
 
@@ -243,11 +245,34 @@ export default defineConfig([
 
 packages.json
 
+在 `package.json` 文件中设置一个 `build:watch` 命令，以便在开发过程中可以实时监控文件变化并重新构建项目
+
 ```json
 {
   "name": "@miaoma/monitor-sdk-browser",
   "version": "1.0.0",
-  "main": "index.js",
+    // 子包 产物及 产物向外暴露的逻辑（package.json的核心逻辑快）
+    // 入口
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.mjs",
+  "types": "build/types/index.d.ts",
+    // 暴露的出口
+  "exports": {
+    "./package.json": "./package.json",
+      // 相对路径
+    ".": {
+        // esm
+      "import": {
+        "types": "./build/types/index.d.ts",
+        "default": "./build/esm/index.mjs"
+      },
+        // commonjs
+      "require": {
+        "types": "./build/types/index.d.ts",
+        "default": "./build/cjs/index.js"
+      }
+    }
+  },
   "scripts": {
       // 使用监听模式来启动 命令并行,但是window系统不支持 & 并行执行，使用concurrently插件
     //"build:watch": "pnpm run build:watch:transpile & pnpm run build:watch:types", 
