@@ -9,20 +9,15 @@ import { setupCounter } from './counter.ts'
 // 引入 sentry
 // import {init} from '@sentry/browser'
 
-// import { init } from '@miaoma/monitor-sdk-browser'
+import { init } from '@miaoma/monitor-sdk-browser'
 
-// init({
-//   dsn: 'https://localhost:8000/appid-xxx'
-// })
+init({
+  dsn: 'https://localhost:8000/appid-xxx'
+})
 
+new Error('test error')
 
-
-
-
-
-
-
-
+// aaa()
 
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `

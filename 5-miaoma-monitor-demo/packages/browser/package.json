@@ -28,5 +28,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@miaoma/monitor-sdk-core": "workspace:*",
+    "@miaoma/monitor-sdk-browser-utils": "workspace:*"
+  }
 }

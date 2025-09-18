@@ -8,6 +8,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "@miaoma/monitor-sdk-browser": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "~5.8.3",
     "vite": "^7.1.2"
